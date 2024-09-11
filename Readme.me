@@ -1,0 +1,65 @@
+***************************************************************************************************************************************************
+controller
+****************************************************************************************************************************************************
+special type of class/components that handle HTTP Request
+we will write here special endpoints as methods
+controller will only create endpoints and call the services
+
+<?> --> WHILE CART PATTERN
+
+******************************************************************************************************************************************************
+service
+********************************************************************************************************************************************************
+In service class we will have created our own method name like save delete which will call mongodb operation like save delete etc.
+controller will call the service will call repository
+controller---> service --> repository
+
+************************************************************************************************************************************************************
+repository
+************************************************************************************************************************************************************
+Repository class are the interface which will extend from MongoRepository which have all the methode like save delete etc.
+it has all the operation which belongs to Mongodb database
+
+*************************************************************************************************************************************************************
+entity
+*****************************************************************************************************************************************************************
+It is a class which look like plain object, or we can say POJO Class
+It will tell you how your data will look like or how json will lok like
+
+****************************************************************************************************************************************************************
+config
+***************************************************************************************************************************************************************
+This class will deals with security or spring security
+
+***********************************************************************************************************************************************************
+org.springframework.security.core.userdetails.UserDetailsService
+****************************************************************************************************************************************************************
+UserDetailsService ---------------------->Interface
+THis class will help use to find user or load user depend upon there name
+For that we need to implement this interface UserDetailsService
+To fetch user name
+*************************************************************************************************************************************************
+Mock
+*************************************************************************************************************************************************
+for testing a single components/function that need to run the entire class this will take time
+Now we don't want to spend more time or we don't want to wait for longer In this scariness we can use mock that is(mokito)
+    working:-
+        we pass a dummy parameter from test we are stopping to use database parameter so we are passing the parameter from the dummy function test.
+        we need to use @MOckBean Annotation in our test class
+
+------>****** ------>  suppose we have one class UserDetailServiceImp <--------- ********* <------------
+    In this class we are using UserREpository and we are calling one funcion from the userRepository that is findBYUserName(username)
+
+**************-------------------> so now in my test class-->
+suppopse we have atest  class userSErviceImplTest
+
+@Autowired
+private UserSErviceDEtailImpl userDetailSevice;
+@MockBean
+private UserRepositoy userRepository;
+
+public void loadUerByUserName(){
+when(userrEpository.findByUserName(ArgumentsMatcher.anyString())).thenREturn (User.builder().userName("ram").password("irik").build());
+when(userrEpository.findByUserName("shyam").thenREturn (User.builder().userName("ram").password("irik").build());
+UserDeatil user =  userDEatilService.loadUserByuSERname("ram");
+}
